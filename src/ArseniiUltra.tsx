@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const i18n = {
@@ -210,6 +210,19 @@ export default function ArseniiUltra() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeId, setActiveId] = useState<(typeof NAV_IDS)[number]>("hero");
 
+  const experienceItems: Array<[string, string, string]> = [
+    ["2025 — now", "ONLY & SONS", lang === "de" ? "Verkauf" : "Sales"],
+    [
+      "2025",
+      "Lokschuppen",
+      lang === "de" ? "Runner & Barkeeper" : "Runner & Bartender",
+    ],
+    ["2024–2025", "Matrix Club", lang === "de" ? "Runner" : "Runner"],
+    ["2024–2025", "OSZ Berlin", "MSA"],
+    ["2023–2024", "GoIT Kyiv", lang === "de" ? "QA Tester" : "QA Tester"],
+    ["2023", "Coffee Fellows", lang === "de" ? "Barista" : "Barista"],
+  ];
+
   const observerRef = useRef<IntersectionObserver | null>(null);
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
@@ -332,33 +345,14 @@ export default function ArseniiUltra() {
     []
   );
 
-  const experienceRows = useMemo(
-    () => [
-      ["2025 — now", "ONLY & SONS", lang === "de" ? "Verkauf" : "Sales"],
-      [
-        "2025",
-        "Lokschuppen",
-        lang === "de" ? "Runner & Barkeeper" : "Runner & Bartender",
-      ],
-      ["2024–2025", "Matrix Club", "Runner"],
-      ["2024–2025", "OSZ Berlin", "MSA"],
-      ["2023–2024", "GoIT Kyiv", "QA Tester"],
-      ["2023", "Coffee Fellows", "Barista"],
-    ],
-    [lang]
-  );
-
-  const systemCards = useMemo(
-    () => [
-      ["🪟", "Windows 10/11"],
-      ["🍎", "macOS"],
-      ["🤖", "Android"],
-      ["📱", "iOS"],
-      ["🛠", "Postman · Jira · GitHub"],
-      ["💻", "VS Code"],
-    ],
-    []
-  );
+  const systemCards: Array<[string, string]> = [
+    ["🪟", "Windows 10/11"],
+    ["🍎", "macOS"],
+    ["🤖", "Android"],
+    ["📱", "iOS"],
+    ["🛠", "Postman · Jira · GitHub"],
+    ["💻", "VS Code"],
+  ];
 
   const chipClass = dark
     ? "bg-white/5 border border-white/10"
@@ -763,7 +757,7 @@ export default function ArseniiUltra() {
       <section id="experience" className="max-w-6xl mx-auto px-6">
         <h2 className="text-4xl font-bold">{t.experience}</h2>
         <div className="mt-10 grid gap-6">
-          {experienceRows.map(([year, company, role]) => (
+          {experienceItems.map(([year, company, role]) => (
             <div
               key={`${year}-${company}`}
               className={`grid grid-cols-1 md:grid-cols-[200px_1fr_180px] items-center gap-4 p-5 rounded-xl ${chipClass}`}
@@ -779,6 +773,7 @@ export default function ArseniiUltra() {
       <SectionDivider />
 
       {/* SYSTEMS */}
+
       <section id="systems" className="max-w-6xl mx-auto px-6">
         <h2 className="text-4xl font-bold">{t.systems}</h2>
         <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-6">
